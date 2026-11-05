@@ -1,0 +1,27 @@
+name: Build Thunderbird add-on
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: npm test
+      - run: npm run check
+      - run: npm run build
+      - run: sha256sum dist/*.xpi > dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Meetling-Thunderbird
+          path: dist/
+          if-no-files-found: error

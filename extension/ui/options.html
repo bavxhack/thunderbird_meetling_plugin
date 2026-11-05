@@ -1,0 +1,6 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Meetling – Einstellungen</title><link rel="stylesheet" href="style.css"></head><body>
+<header><img src="../icons/meetling.svg" alt=""><h1>Meetling – Einstellungen</h1></header><p id="status" role="status"></p>
+<form id="settings"><label for="baseUrl">HTTPS-Installationsadresse einschließlich Unterpfad</label><input type="url" id="baseUrl" placeholder="https://meetling.example.org/" required>
+<details><summary>Erweiterte API-Konfiguration</summary><label for="apiBasePath">API-Basispfad</label><input id="apiBasePath"><label for="loginBasePath">Login-Basispfad</label><input id="loginBasePath"><label for="timeoutSeconds">Timeout (Sekunden)</label><input id="timeoutSeconds" type="number" min="1" max="300">
+<label for="login">Login-Endpunkt</label><input id="login"><label for="servers">Server-Endpunkt</label><input id="servers"><label for="createConference">Konferenz-Endpunkt</label><input id="createConference"><label for="logout">Logout-Endpunkt</label><input id="logout"></details>
+<button class="primary" id="save" type="submit">Speichern</button></form><p>Nach einer Änderung erneut anmelden. Login und API verwenden die gleichen Routen wie das Outlook-Plugin. Entwürfe werden weder automatisch gespeichert noch versendet.</p><script type="module" src="options.mjs"></script></body></html>

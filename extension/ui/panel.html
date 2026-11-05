@@ -1,0 +1,10 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Meetling</title><link rel="stylesheet" href="style.css"></head><body>
+<header><img src="../icons/meetling.svg" alt=""><h1>Meetling</h1></header>
+<p id="status" role="status" aria-live="polite"></p><p id="hint"></p>
+<div class="actions"><button id="prepare" class="primary">Neues Meetling</button><button id="login">Anmelden</button><button id="refresh">Server aktualisieren</button><button id="options">Einstellungen</button></div>
+<div id="loginControls" hidden><button id="return">Zurück zu Meetling</button><button id="cancelLogin">Anmeldung abbrechen</button></div>
+<section id="selection" hidden><h2>Server auswählen</h2><div id="servers"></div><button id="cancelSelection">Abbrechen</button></section>
+<section id="recovery" hidden><h2>Konferenz erstellt – Links manuell übernehmen</h2><p>Die Einfügung konnte nicht abgeschlossen werden. Diese Links übernehmen; es wird kein weiterer Raum erstellt.</p><textarea id="recoveryText" readonly rows="13" aria-label="Konferenzdaten zum Kopieren"></textarea><button id="copy">Konferenzdaten kopieren</button><button id="clearRecovery">Schließen</button></section>
+<div class="actions"><button id="logout">Abmelden</button><button id="localLogout">Nur lokal abmelden</button><button id="reload">Konfiguration neu laden</button></div>
+<details><summary>Diagnose</summary><p>Enthält nur feste Aktionskategorien, Status und Zeitpunkte.</p><pre id="diagnostics"></pre></details>
+<script type="module" src="panel.mjs"></script></body></html>

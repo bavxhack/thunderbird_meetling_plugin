@@ -1,0 +1,13 @@
+{
+ "manifest_version":2,"name":"Meetling für Thunderbird","version":"1.0.0",
+ "description":"Meetling-Konferenzen mit SSO/MFA in Kalender- und E-Mail-Entwürfe einfügen.",
+ "browser_specific_settings":{"gecko":{"id":"meetling-thunderbird@bavxhack.de","strict_min_version":"140.0","strict_max_version":"154.*"}},
+ "permissions":["storage","tabs","compose","contextualIdentities","cookies","webRequest","webRequestBlocking","https://*/*","http://*/*"],
+ "background":{"page":"background.html"},
+ "browser_action":{"default_title":"Meetling","default_icon":"icons/meetling.svg"},
+ "compose_action":{"default_title":"Meetling","default_icon":"icons/meetling.svg"},
+ "options_ui":{"page":"ui/options.html","open_in_tab":true},
+ "storage":{"managed_schema":"managed-schema.json"},
+ "experiment_apis":{"meetlingNative":{"schema":"experiments/native/schema.json","parent":{"scopes":["addon_parent"],"paths":[["meetlingNative"]],"script":"experiments/native/api.js"}}},
+ "content_security_policy":"script-src 'self'; object-src 'none'"
+}

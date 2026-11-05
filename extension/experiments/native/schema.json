@@ -1,0 +1,99 @@
+[
+  {
+    "namespace": "meetlingNative",
+    "functions": [
+      {
+        "name": "encrypt",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "decrypt",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ],
+        "returns": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "capture",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "windowId",
+            "type": "integer"
+          }
+        ],
+        "returns": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "markPending",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "key",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "apply",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "conference",
+            "type": "object",
+            "additionalProperties": true
+          }
+        ]
+      },
+      {
+        "name": "release",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "key",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onInvoke",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "key",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -4,7 +4,7 @@ Thunderbird-MailExtension mit den Konferenzfunktionen des [Meetling-Outlook-Plug
 
 ## Installieren und verwenden
 
-1. Das Artefakt **Meetling-Thunderbird** aus dem [Build-Workflow](https://github.com/bavxhack/thunderbird_meetling_plugin/actions/workflows/build.yml) herunterladen und entpacken. Alternativ lokal wie unten bauen.
+1. Das fertige [XPI direkt herunterladen](https://github.com/bavxhack/thunderbird_meetling_plugin/raw/refs/heads/main/packages/Meetling-Thunderbird-1.0.0.xpi). Alternativ das Artefakt **Meetling-Thunderbird** aus dem [Build-Workflow](https://github.com/bavxhack/thunderbird_meetling_plugin/actions/workflows/build.yml) herunterladen und entpacken. Alternativ lokal wie unten bauen.
 2. In Thunderbird unter **Add-ons und Themes → Zahnrad → Add-on aus Datei installieren** die Datei `Meetling-Thunderbird-1.0.0.xpi` auswählen. Die native Experiment-API benötigt umfassenden Thunderbird-Zugriff; Unternehmensrichtlinien müssen diese Erweiterungen erlauben.
 3. In den Add-on-Einstellungen die **HTTPS-Installationsadresse** hinterlegen, z. B. `https://meetling.example.org/` oder einschließlich Installationsunterpfad. Die mitgelieferten API-Pfade unverändert lassen, wenn der Server die Outlook-Plugin-API verwendet.
 4. Über den Meetling-Button **Anmelden** wählen. Der sichtbare, isolierte Anmeldebrowser verwendet denselben SSO-/MFA-Weg und denselben `outlooklogin`-Endpunkt wie Outlook. Falls nach MFA nötig: **Zurück zu Meetling** im Meetling-Fenster. Es gibt keine neue OAuth-App, keinen erfundenen Callback und keine Passwort-/Token-Eingabe im Plugin.

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {settings,endpoint,exactLogin,parseJson,parseLogin,parseServers,parseConference,ApiClient,ApiError} from '../extension/lib/core.mjs';
+import {settings,endpoint,exactLogin,parseJson,parseLogin,parseServers,parseConference,ApiClient,ApiError,transportFailure} from '../extension/lib/core.mjs';
 const s=settings({baseUrl:'https://example.org/meetling'});
 test('installation subpath, routes and narrow legacy migration',()=>{
  assert.equal(endpoint(s,'login'),'https://example.org/meetling/room/outlook/plugin/outlooklogin');
@@ -47,4 +47,25 @@ test('documented token errors and logout confirmation',async()=>{
   if(ok) await client.request('logout');else await assert.rejects(()=>client.request('logout'));
  }
  await assert.rejects(()=>new ApiClient(s,'t',async()=>({ok:false,status:401})).request('servers'),e=>e.invalidToken);
+});
+test('browser fetch receives its Window global rather than the API client as receiver',async()=>{
+ const browserFetch=async function(url,options) {
+  if(this!==globalThis) throw new TypeError("Window.fetch: 'this' does not implement interface Window.");
+  return {ok:true,status:200,text:async()=>'[{"id":1,"name":"S"}]'};
+ };
+ const client=new ApiClient(s,'opaque',browserFetch);
+ assert.deepEqual(await client.request('servers'),[{id:'1',name:'S'}]);
+});
+
+test('transport diagnostics report only fixed categories, never exception secrets',async()=>{
+ const records=[];
+ const secret='https://secret.example/?token=PRIVATE';
+ const failure=new TypeError(secret);
+ const client=new ApiClient(s,'opaque',async()=>{throw failure;},(action,phase)=>records.push({action,phase}));
+ await assert.rejects(()=>client.request('servers'));
+ assert.equal(records.at(-1).phase,'failed: network-or-request-policy');
+ assert(!JSON.stringify(records).includes('PRIVATE'));
+ assert.equal(transportFailure(new TypeError("Window.fetch: 'this' does not implement interface Window.")),'browser-fetch-context');
+ assert.equal(transportFailure({name:'AbortError'}),'cancelled-or-timeout');
+ assert.equal(transportFailure({name:'SecurityError'}),'browser-security-policy');
 });

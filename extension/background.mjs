@@ -1,4 +1,4 @@
-import {settings, ApiClient, ApiError} from './lib/core.mjs';
+import {settings, ApiClient, ApiError, transportFailure} from './lib/core.mjs';
 import {BrowserLogin} from './lib/login.mjs';
 import {Vault} from './lib/vault.mjs';
 const b=browser, vault=new Vault(b), panels=new Map();
@@ -56,7 +56,7 @@ async function error(e,context,version) {
     login=null; cache=null;
     try {await vault.remove(config.baseUrl);} catch {status='Anmeldung ungültig; gespeichertes Token konnte nicht entfernt werden.';return;}
     status='Anmeldung nicht mehr gültig. Bitte erneut anmelden.';
-  } else status=context + (e instanceof ApiError ? ' ' + e.message : e instanceof TypeError || e.name==='AbortError' ? ' Netzwerk, DNS, Proxy, Zertifikat oder Timeout prüfen. Ein Transportfehler löscht die Anmeldung nicht.' : ' ' + e.message);
+  } else status=context + (e instanceof ApiError ? ' ' + e.message : transportFailure(e)==='browser-fetch-context' ? ' Interner Browser-Aufruffehler. Bitte die aktuelle Plugin-Version installieren.' : e instanceof TypeError || e.name==='AbortError' ? ' Netzwerk, DNS, Proxy, Zertifikat oder Timeout prüfen. Ein Transportfehler löscht die Anmeldung nicht.' : ' ' + e.message);
 }
 async function openPanel(windowId, target=null) {
   if (windowId == null && !target) windowId=(await b.windows.getLastFocused({windowTypes:['normal']})).id;

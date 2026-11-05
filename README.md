@@ -2,14 +2,18 @@
 
 Thunderbird-MailExtension mit den Konferenzfunktionen des [Meetling-Outlook-Plugins](https://github.com/bavxhack/outlook_plugin_meetling). Eigenständige JavaScript-Implementierung; das Outlook-Repository wurde nicht geändert. Referenzstand: `003e5a9917124764cee3cc7805c7babb5930ad05` (Version 1.3.7).
 
+## Version 1.0.2
+
+Korrigiert den Aufruf des Browser-`fetch`: Die native Funktion wird mit dem globalen Window-Kontext aufgerufen, statt den API-Client als `this` zu erhalten. Firefox/Thunderbird kann den bisherigen Methodenaufruf vor jedem Netzwerkzugriff mit einem TypeError ablehnen. Der Regressionstest bildet diese Browserprüfung nach. Transportdiagnosen unterscheiden jetzt feste Fehlerkategorien, ohne Exceptiontexte, URLs oder Tokens auszugeben. Bestehende gespeicherte Anmeldungen bleiben erhalten; nach dem Update zunächst „Server aktualisieren“ wählen. Die echte Live-Verbindung muss weiterhin im Ziel-Thunderbird geprüft werden.
+
 ## Version 1.0.1
 
 Behebt die Installationssperre unter Thunderbird 159.0: Die bisherige Manifest-Obergrenze 154 wurde auf 159.* angehoben. Das XPI wurde mit Version 1.0.1 neu gebaut. Fenster-/Container- und Kalendereditor-Schnittstellen wurden im aktuellen Thunderbird-Quellcode geprüft; eine echte Ausführung unter Thunderbird 159 ist weiterhin nicht bestätigt.
 
 ## Installieren und verwenden
 
-1. Das fertige [XPI direkt herunterladen](https://github.com/bavxhack/thunderbird_meetling_plugin/raw/refs/heads/main/packages/Meetling-Thunderbird-1.0.1.xpi). Alternativ das Artefakt **Meetling-Thunderbird** aus dem [Build-Workflow](https://github.com/bavxhack/thunderbird_meetling_plugin/actions/workflows/build.yml) herunterladen und entpacken. Alternativ lokal wie unten bauen.
-2. In Thunderbird unter **Add-ons und Themes → Zahnrad → Add-on aus Datei installieren** die Datei `Meetling-Thunderbird-1.0.1.xpi` auswählen. Die native Experiment-API benötigt umfassenden Thunderbird-Zugriff; Unternehmensrichtlinien müssen diese Erweiterungen erlauben.
+1. Das fertige [XPI direkt herunterladen](https://github.com/bavxhack/thunderbird_meetling_plugin/raw/refs/heads/main/packages/Meetling-Thunderbird-1.0.2.xpi). Alternativ das Artefakt **Meetling-Thunderbird** aus dem [Build-Workflow](https://github.com/bavxhack/thunderbird_meetling_plugin/actions/workflows/build.yml) herunterladen und entpacken. Alternativ lokal wie unten bauen.
+2. In Thunderbird unter **Add-ons und Themes → Zahnrad → Add-on aus Datei installieren** die Datei `Meetling-Thunderbird-1.0.2.xpi` auswählen. Die native Experiment-API benötigt umfassenden Thunderbird-Zugriff; Unternehmensrichtlinien müssen diese Erweiterungen erlauben.
 3. In den Add-on-Einstellungen die **HTTPS-Installationsadresse** hinterlegen, z. B. `https://meetling.example.org/` oder einschließlich Installationsunterpfad. Die mitgelieferten API-Pfade unverändert lassen, wenn der Server die Outlook-Plugin-API verwendet.
 4. Über den Meetling-Button **Anmelden** wählen. Der sichtbare, isolierte Anmeldebrowser verwendet denselben SSO-/MFA-Weg und denselben `outlooklogin`-Endpunkt wie Outlook. Falls nach MFA nötig: **Zurück zu Meetling** im Meetling-Fenster. Es gibt keine neue OAuth-App, keinen erfundenen Callback und keine Passwort-/Token-Eingabe im Plugin.
 5. Im Thunderbird-Hauptfenster über **Meetling → Neues Meetling** einen nativen Kalenderentwurf öffnen. In einem geöffneten Kalenderentwurf steht zusätzlich **Neues Meetling** neben dem Ort. In einem E-Mail-Entwurf den Meetling-Button der Verfassen-Symbolleiste nutzen. Bei mehreren Servern einen großen Serverbutton auswählen; Abbrechen erstellt keinen Raum.
@@ -41,7 +45,7 @@ npm run check
 npm run build
 ```
 
-Ergebnis: `dist/Meetling-Thunderbird-1.0.1.xpi`. Das Paket enthält ausschließlich `extension/`, mit `manifest.json` direkt an der ZIP-Wurzel. GitHub Actions führt dieselben Schritte aus und lädt das XPI samt SHA-256-Prüfsumme als Artefakt hoch.
+Ergebnis: `dist/Meetling-Thunderbird-1.0.2.xpi`. Das Paket enthält ausschließlich `extension/`, mit `manifest.json` direkt an der ZIP-Wurzel. GitHub Actions führt dieselben Schritte aus und lädt das XPI samt SHA-256-Prüfsumme als Artefakt hoch.
 
 Die Manifest-Grenzen sind Thunderbird **140 bis 159**. Kalenderintegration, NSS-Speicherung und Toolbarbutton verwenden eine native Experiment-API, da die reguläre MailExtension-API keine vollständige Bearbeitung nativer Kalenderentwürfe anbietet. Beim Wechsel auf eine andere Thunderbird-Hauptversion muss diese Grenze nach Prüfung angepasst werden.
 

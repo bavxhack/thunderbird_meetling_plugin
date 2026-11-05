@@ -116,8 +116,18 @@ export function parseConference(text, s) {
   const html = parts.map(line => [url, moderatorEditUrl].includes(line) ? `<a href="${escape(line)}">${escape(line)}</a>` : escape(line)).join('<br>') + '<br>';
   return {url,title,id,moderatorEditUrl,phoneNumbers,pin,bodyText,html};
 }
+// Only fixed categories leave this boundary; exception text may contain URLs/secrets.
+export function transportFailure(error) {
+  if (error instanceof ApiError) return 'api-response';
+  if (error?.name === 'AbortError') return 'cancelled-or-timeout';
+  if (error?.name === 'SecurityError') return 'browser-security-policy';
+  if (error?.name === 'TypeError' && /interface Window|Illegal invocation|incompatible.*(?:object|receiver)/i.test(error.message || '')) return 'browser-fetch-context';
+  if (error?.name === 'TypeError') return 'network-or-request-policy';
+  if (error?.name === 'NetworkError') return 'network';
+  return 'request-failed';
+}
 export class ApiClient {
-  constructor(s, token, fetcher = fetch, trace = () => {}) { this.s = s; this.token = validateToken(token); this.fetcher = fetcher; this.trace = trace; }
+  constructor(s, token, fetcher = fetch, trace = () => {}) { this.s = s; this.token = validateToken(token); this.fetcher = (...args) => Reflect.apply(fetcher, globalThis, args); this.trace = trace; }
   async request(action, id, signal) {
     if (action === 'createConference' && !/^-?\d+$/.test(id)) throw new Error('Ungültige Server-ID.');
     const controller = new AbortController();
@@ -135,7 +145,7 @@ export class ApiClient {
       if (action === 'servers') return parseServers(text);
       if (action === 'createConference') return parseConference(text, this.s);
       const o = parseJson(text); if (!object(o) || !Object.hasOwn(o,'token') || o.token !== null) throw new ApiError('Logout wurde nicht bestätigt.');
-    } catch (e) { this.trace(action,'failed'); throw e; }
+    } catch (e) { this.trace(action,'failed: ' + transportFailure(e)); throw e; }
     finally { clearTimeout(timer); signal?.removeEventListener('abort', abort); }
   }
 }

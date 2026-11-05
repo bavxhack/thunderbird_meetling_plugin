@@ -2,7 +2,7 @@
 
 Status: offen. Keine Live-Anmeldung oder native Thunderbird-Ausführung in der Entwicklungsumgebung durchgeführt. Mit einem Testkonto und Testkalender prüfen; Testkonferenzen anschließend im Server verwalten.
 
-- [ ] XPI unter der vorgesehenen Thunderbird-Version installieren. Hauptfenster, Verfassen-Button und Kalenderbutton prüfen; Tastatur, Kontrastmodus und Skalierung testen.
+- [ ] Version 1.0.1 unter Thunderbird 159.0 installieren: keine Ablehnung wegen Versionsinkompatibilität. Anschließend XPI unter der weiteren vorgesehenen Thunderbird-Version installieren. Hauptfenster, Verfassen-Button und Kalenderbutton prüfen; Tastatur, Kontrastmodus und Skalierung testen.
 - [ ] Ohne Kalender verständlicher Fehler vor Create. Mit beschreibbarem Kalender nativer neuer Entwurf; leerer Betreff bleibt leer.
 - [ ] Installation mit Unterpfad konfigurieren; API-/Loginrouten im Serverprotokoll bestätigen, ohne Tokens zu protokollieren.
 - [ ] Normalen Login, SSO-Weiterleitung, OTP/MFA und SSO-Popup testen. Popup muss den Login-Container und opener behalten. Systembrowser-/andere Thunderbird-Cookies dürfen nicht verwendet oder gelöscht werden.

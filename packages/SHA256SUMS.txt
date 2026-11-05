@@ -1,1 +1,2 @@
 6ec2183d5feb4ab597316faf9c413a7f7a11916e4bc76a1dfd855a93a3bcbb9c  Meetling-Thunderbird-1.0.0.xpi
+218e7be6e5cf42f71b261449791568cf78d500c93496449b62c4642a8ee74b63  Meetling-Thunderbird-1.0.1.xpi

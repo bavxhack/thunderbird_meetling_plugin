@@ -1,7 +1,7 @@
 {
- "manifest_version":2,"name":"Meetling für Thunderbird","version":"1.0.0",
+ "manifest_version":2,"name":"Meetling für Thunderbird","version":"1.0.1",
  "description":"Meetling-Konferenzen mit SSO/MFA in Kalender- und E-Mail-Entwürfe einfügen.",
- "browser_specific_settings":{"gecko":{"id":"meetling-thunderbird@bavxhack.de","strict_min_version":"140.0","strict_max_version":"154.*"}},
+ "browser_specific_settings":{"gecko":{"id":"meetling-thunderbird@bavxhack.de","strict_min_version":"140.0","strict_max_version":"159.*"}},
  "permissions":["storage","tabs","compose","contextualIdentities","cookies","webRequest","webRequestBlocking","https://*/*","http://*/*"],
  "background":{"page":"background.html"},
  "browser_action":{"default_title":"Meetling","default_icon":"icons/meetling.svg"},
